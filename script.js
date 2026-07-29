@@ -473,25 +473,28 @@ Mensagem gerada de forma automatizada pelo site institucional FCPN.`;
     const registerErrorMsg = document.getElementById('register-error-msg');
     const registerSuccessMsg = document.getElementById('register-success-msg');
 
-    // Configuração do endereço da API (Flask)
-    // Em produção na web, insira a URL pública da sua API hospedada (ex: 'https://sua-api.onrender.com')
-    const PRODUCAO_API_URL = ''; 
 
-    let apiBaseUrl = '';
-    
-    // Detecta se está em um servidor de desenvolvimento isolado (ex: Live Server)
-    // que não seja o próprio Flask nem o Nginx, para apontar explicitamente para o Flask.
-    const host = window.location.hostname;
-    const port = window.location.port;
-    const isDevServerAlone = (host === 'localhost' || host === '127.0.0.1') &&
-                             port && port !== '5000' && port !== '80' && port !== '443';
-
-    if (isDevServerAlone) {
-        apiBaseUrl = 'http://localhost:5000';
-    } else if (PRODUCAO_API_URL) {
-        apiBaseUrl = PRODUCAO_API_URL;
+    // ==========================================================================
+    // INÍCIO DO SISTEMA MOCK (LOCALSTORAGE)
+    // ==========================================================================
+    function initMockDB() {
+        if (!localStorage.getItem('fcpn_mock_db')) {
+            const initialDB = [
+                { id: 1, email: 'admin@fcpn.org', password: 'admin123', role: 'admin' },
+                { id: 2, email: 'membro@fcpn.org', password: 'fcpn2026', role: 'member' }
+            ];
+            localStorage.setItem('fcpn_mock_db', JSON.stringify(initialDB));
+        }
     }
-    // Caso contrário, apiBaseUrl fica '' (URLs relativas via Nginx proxy)
+    initMockDB();
+
+    function getMockDB() {
+        return JSON.parse(localStorage.getItem('fcpn_mock_db') || '[]');
+    }
+
+    function saveMockDB(db) {
+        localStorage.setItem('fcpn_mock_db', JSON.stringify(db));
+    }
 
     // Função para checar estado da sessão e atualizar a interface
     function checkLoginStatus() {
@@ -507,18 +510,14 @@ Mensagem gerada de forma automatizada pelo site institucional FCPN.`;
             if (membersPortalContainer) membersPortalContainer.classList.remove('hidden');
             if (userDisplayEmail) userDisplayEmail.textContent = userEmail;
 
-            // Tanto membros quanto administradores veem a grid de conteúdo
             if (portalContentGrid) portalContentGrid.classList.remove('hidden');
 
             if (userRole === 'admin') {
-                // Admin tem acesso a todos os cards
                 if (registerCard) registerCard.classList.remove('hidden');
                 if (campaignCard) campaignCard.classList.remove('hidden');
                 if (adminManagementCard) adminManagementCard.classList.remove('hidden');
                 loadMembers();
             } else {
-                // Membro comum vê Comunicados, Documentos e Links.
-                // Mas NÃO vê Cadastro, Campanhas e Gerenciamento.
                 if (registerCard) registerCard.classList.add('hidden');
                 if (campaignCard) campaignCard.classList.add('hidden');
                 if (adminManagementCard) adminManagementCard.classList.add('hidden');
@@ -529,67 +528,40 @@ Mensagem gerada de forma automatizada pelo site institucional FCPN.`;
             if (adminManagementCard) adminManagementCard.classList.add('hidden');
             if (portalContentGrid) portalContentGrid.classList.remove('hidden');
             
-            // Reseta a visibilidade padrão dos cards ao deslogar
             if (registerCard) registerCard.classList.remove('hidden');
             if (campaignCard) campaignCard.classList.remove('hidden');
         }
     }
 
-    // Listener de login via API
+    // Listener de login (Mock LocalStorage)
     if (membersLoginForm) {
         membersLoginForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
-            const emailInput = document.getElementById('login-email').value.trim();
+            const emailInput = document.getElementById('login-email').value.trim().toLowerCase();
             const passwordInput = document.getElementById('login-password').value;
 
             if (loginErrorMsg) loginErrorMsg.classList.add('hidden');
 
-            fetch(`${apiBaseUrl}/api/login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email: emailInput,
-                    password: passwordInput
-                })
-            })
-            .then(response => {
-                if (response.status === 404) {
-                    throw new Error('endpoint_not_found');
-                }
-                if (!response.ok) {
-                    throw new Error('invalid_credentials');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.success) {
-                    sessionStorage.setItem('fcpn_member_logged', 'true');
-                    sessionStorage.setItem('fcpn_member_email', data.email);
-                    sessionStorage.setItem('fcpn_member_role', data.role);
-                    
-                    membersLoginForm.reset();
-                    checkLoginStatus();
-                    alert(`Login efetuado com sucesso! Bem-vindo, perfil: ${data.role === 'admin' ? 'Administrador' : 'Membro'}.`);
-                }
-            })
-            .catch(err => {
-                console.error('Erro de Login:', err);
+            const db = getMockDB();
+            const user = db.find(u => u.email.toLowerCase() === emailInput && u.password === passwordInput);
+
+            if (user) {
+                sessionStorage.setItem('fcpn_member_logged', 'true');
+                sessionStorage.setItem('fcpn_member_email', user.email);
+                sessionStorage.setItem('fcpn_member_role', user.role);
+                
+                membersLoginForm.reset();
+                checkLoginStatus();
+                alert(`Login efetuado com sucesso! Bem-vindo, perfil: ${user.role === 'admin' ? 'Administrador' : 'Membro'}.`);
+            } else {
                 if (loginErrorMsg) {
-                    if (err.message === 'endpoint_not_found') {
-                        loginErrorMsg.innerHTML = '❌ Erro de Publicação: Servidor de API (Flask) não foi encontrado (404). Se o site foi publicado em hospedagem estática, configure a API hospedada em produção.';
-                    } else if (err.message === 'invalid_credentials') {
-                        loginErrorMsg.innerHTML = '❌ Credenciais inválidas. Tente novamente ou contate a administração.';
-                    } else {
-                        loginErrorMsg.innerHTML = '❌ Erro de Conexão: Não foi possível alcançar o servidor backend. Verifique se ele está ativo.';
-                    }
+                    loginErrorMsg.innerHTML = '❌ Credenciais inválidas. Tente novamente.';
                     loginErrorMsg.classList.remove('hidden');
                 }
                 const passField = document.getElementById('login-password');
                 if (passField) passField.value = '';
-            });
+            }
         });
     }
 
@@ -599,39 +571,23 @@ Mensagem gerada de forma automatizada pelo site institucional FCPN.`;
             sessionStorage.removeItem('fcpn_member_logged');
             sessionStorage.removeItem('fcpn_member_email');
             sessionStorage.removeItem('fcpn_member_role');
-            sessionStorage.removeItem('fcpn_campaign'); // Reseta campanha no logout
-            applyCampaign('default'); // Volta ao tema padrão
+            sessionStorage.removeItem('fcpn_campaign'); 
+            applyCampaign('default'); 
             checkLoginStatus();
             alert('Você saiu da Área de Membros.');
-            switchSection('home'); // Redireciona para home ao sair
+            switchSection('home'); 
         });
     }
 
-    // Função para carregar lista de membros do SQLite (Apenas Admin)
+    // Carregar membros (Mock)
     function loadMembers() {
-        const userEmail = sessionStorage.getItem('fcpn_member_email');
-        if (!userEmail) return;
-
-        fetch(`${apiBaseUrl}/api/members`, {
-            method: 'GET',
-            headers: {
-                'X-User-Email': userEmail
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                renderMembers(data.members);
-            } else {
-                console.error(data.message);
-            }
-        })
-        .catch(err => {
-            console.error('Erro ao buscar membros:', err);
-        });
+        const userRole = sessionStorage.getItem('fcpn_member_role');
+        if (userRole !== 'admin') return;
+        const db = getMockDB();
+        renderMembers(db);
     }
 
-    // Função para renderizar a lista de membros na interface
+    // Renderizar lista
     function renderMembers(members) {
         if (!adminMembersList) return;
         adminMembersList.innerHTML = '';
@@ -676,7 +632,6 @@ Mensagem gerada de forma automatizada pelo site institucional FCPN.`;
             adminMembersList.appendChild(tr);
         });
 
-        // Adiciona eventos aos botões de exclusão
         const deleteButtons = adminMembersList.querySelectorAll('.delete-member-btn');
         deleteButtons.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -688,7 +643,6 @@ Mensagem gerada de forma automatizada pelo site institucional FCPN.`;
             });
         });
 
-        // Adiciona eventos aos botões de alteração de senha administrativa
         const changePassButtons = adminMembersList.querySelectorAll('.admin-change-pass-btn');
         changePassButtons.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -713,7 +667,6 @@ Mensagem gerada de forma automatizada pelo site institucional FCPN.`;
             });
         });
 
-        // Adiciona eventos aos botões de alteração de nível de acesso (cargo)
         const changeRoleButtons = adminMembersList.querySelectorAll('.admin-change-role-btn');
         changeRoleButtons.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -729,157 +682,71 @@ Mensagem gerada de forma automatizada pelo site institucional FCPN.`;
         });
     }
 
-    // Função para excluir membro da API/SQLite
+    // Excluir membro (Mock)
     function deleteMember(id) {
-        const userEmail = sessionStorage.getItem('fcpn_member_email');
-        if (!userEmail) return;
-
-        fetch(`${apiBaseUrl}/api/members/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'X-User-Email': userEmail
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Membro excluído com sucesso!');
-                loadMembers();
-            } else {
-                alert(`Erro ao excluir membro: ${data.message}`);
-            }
-        })
-        .catch(err => {
-            console.error('Erro na requisição de exclusão:', err);
-            alert('Ocorreu um erro ao processar a exclusão.');
-        });
+        const userRole = sessionStorage.getItem('fcpn_member_role');
+        if (userRole !== 'admin') return;
+        let db = getMockDB();
+        db = db.filter(m => m.id !== parseInt(id));
+        saveMockDB(db);
+        alert('Membro excluído com sucesso!');
+        loadMembers();
     }
 
-    // Função para admin alterar o nível de acesso (cargo) de qualquer membro
+    // Alterar Cargo (Mock)
     function adminChangeMemberRole(userId, newRole) {
-        const adminEmail = sessionStorage.getItem('fcpn_member_email');
-        if (!adminEmail) return;
-
-        fetch(`${apiBaseUrl}/api/admin/change-role`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-User-Email': adminEmail
-            },
-            body: JSON.stringify({
-                user_id: parseInt(userId),
-                new_role: newRole
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert(data.message);
-                loadMembers();
-            } else {
-                alert(`Erro: ${data.message}`);
-            }
-        })
-        .catch(err => {
-            console.error('Erro ao alterar nível de membro:', err);
-            alert('Ocorreu um erro ao processar a alteração do nível de acesso.');
-        });
+        const userRole = sessionStorage.getItem('fcpn_member_role');
+        if (userRole !== 'admin') return;
+        let db = getMockDB();
+        let user = db.find(m => m.id === parseInt(userId));
+        if (user) {
+            user.role = newRole;
+            saveMockDB(db);
+            alert(`Nível de acesso alterado para ${newRole === 'admin' ? 'Administrador' : 'Membro Padrão'}!`);
+            loadMembers();
+        } else {
+            alert('Membro não encontrado.');
+        }
     }
 
-    // Função para admin alterar a senha de qualquer membro
-    function adminChangeMemberPassword(userId, newPassword) {
-        const adminEmail = sessionStorage.getItem('fcpn_member_email');
-        if (!adminEmail) return;
-
-        fetch(`${apiBaseUrl}/api/admin/change-password`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-User-Email': adminEmail
-            },
-            body: JSON.stringify({
-                user_id: parseInt(userId),
-                new_password: newPassword
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert(data.message);
-            } else {
-                alert(`Erro: ${data.message}`);
-            }
-        })
-        .catch(err => {
-            console.error('Erro ao alterar senha de membro:', err);
-            alert('Ocorreu um erro ao processar a alteração de senha.');
-        });
-    }
-
-    // Ouvinte para cadastrar novos membros via API
+    // Cadastrar Membro via form
     if (registerMemberForm) {
         registerMemberForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
-            const emailInput = document.getElementById('reg-email').value.trim();
+            const emailInput = document.getElementById('reg-email').value.trim().toLowerCase();
             const passwordInput = document.getElementById('reg-password').value;
             const roleInput = document.getElementById('reg-role')?.value || 'member';
             
-            const requesterEmail = sessionStorage.getItem('fcpn_member_email');
+            const userRole = sessionStorage.getItem('fcpn_member_role');
+            if (userRole !== 'admin') return;
             
-            if (!requesterEmail) {
-                alert('Sessão expirada. Faça login novamente.');
-                return;
-            }
-
             if (registerErrorMsg) registerErrorMsg.classList.add('hidden');
             if (registerSuccessMsg) registerSuccessMsg.classList.add('hidden');
 
-            fetch(`${apiBaseUrl}/api/members`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-User-Email': requesterEmail
-                },
-                body: JSON.stringify({
-                    email: emailInput,
-                    password: passwordInput,
-                    role: roleInput
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    if (registerSuccessMsg) {
-                        registerSuccessMsg.textContent = '✔️ ' + data.message;
-                        registerSuccessMsg.classList.remove('hidden');
-                    }
-                    registerMemberForm.reset();
-                    document.getElementById('reg-role').value = 'member';
-                    
-                    // Se quem cadastrou for admin, recarrega a listagem de membros
-                    const userRole = sessionStorage.getItem('fcpn_member_role');
-                    if (userRole === 'admin') {
-                        loadMembers();
-                    }
-                } else {
-                    if (registerErrorMsg) {
-                        registerErrorMsg.textContent = '❌ ' + data.message;
-                        registerErrorMsg.classList.remove('hidden');
-                    }
-                }
-            })
-            .catch(err => {
-                console.error('Erro ao cadastrar membro:', err);
+            let db = getMockDB();
+            if (db.find(m => m.email.toLowerCase() === emailInput)) {
                 if (registerErrorMsg) {
-                    registerErrorMsg.textContent = '❌ Ocorreu um erro no servidor ao cadastrar.';
+                    registerErrorMsg.textContent = '❌ Este e-mail já está cadastrado.';
                     registerErrorMsg.classList.remove('hidden');
                 }
-            });
+                return;
+            }
+
+            const newId = db.length > 0 ? Math.max(...db.map(m => m.id)) + 1 : 1;
+            db.push({ id: newId, email: emailInput, password: passwordInput, role: roleInput });
+            saveMockDB(db);
+
+            if (registerSuccessMsg) {
+                registerSuccessMsg.textContent = '✔️ Membro cadastrado com sucesso!';
+                registerSuccessMsg.classList.remove('hidden');
+            }
+            registerMemberForm.reset();
+            if (document.getElementById('reg-role')) document.getElementById('reg-role').value = 'member';
+            loadMembers();
         });
     }
 
-    // Ouvinte para alteração de senha
+    // Alterar senha própria
     const changePasswordForm = document.getElementById('change-password-form');
     const changePassErrorMsg = document.getElementById('change-pass-error-msg');
     const changePassSuccessMsg = document.getElementById('change-pass-success-msg');
@@ -887,16 +754,10 @@ Mensagem gerada de forma automatizada pelo site institucional FCPN.`;
     if (changePasswordForm) {
         changePasswordForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
             const currentPass = document.getElementById('change-current-pass').value;
             const newPass = document.getElementById('change-new-pass').value;
             const confirmPass = document.getElementById('change-confirm-pass').value;
             const requesterEmail = sessionStorage.getItem('fcpn_member_email');
-
-            if (!requesterEmail) {
-                alert('Sessão expirada. Faça login novamente.');
-                return;
-            }
 
             if (changePassErrorMsg) changePassErrorMsg.classList.add('hidden');
             if (changePassSuccessMsg) changePassSuccessMsg.classList.add('hidden');
@@ -909,39 +770,23 @@ Mensagem gerada de forma automatizada pelo site institucional FCPN.`;
                 return;
             }
 
-            fetch(`${apiBaseUrl}/api/change-password`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-User-Email': requesterEmail
-                },
-                body: JSON.stringify({
-                    current_password: currentPass,
-                    new_password: newPass
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    if (changePassSuccessMsg) {
-                        changePassSuccessMsg.textContent = '✔️ ' + data.message;
-                        changePassSuccessMsg.classList.remove('hidden');
-                    }
-                    changePasswordForm.reset();
-                } else {
-                    if (changePassErrorMsg) {
-                        changePassErrorMsg.textContent = '❌ ' + data.message;
-                        changePassErrorMsg.classList.remove('hidden');
-                    }
+            let db = getMockDB();
+            let user = db.find(m => m.email === requesterEmail);
+            
+            if (user && user.password === currentPass) {
+                user.password = newPass;
+                saveMockDB(db);
+                if (changePassSuccessMsg) {
+                    changePassSuccessMsg.textContent = '✔️ Senha alterada com sucesso!';
+                    changePassSuccessMsg.classList.remove('hidden');
                 }
-            })
-            .catch(err => {
-                console.error('Erro ao alterar senha:', err);
+                changePasswordForm.reset();
+            } else {
                 if (changePassErrorMsg) {
-                    changePassErrorMsg.textContent = '❌ Ocorreu um erro no servidor ao tentar alterar a senha.';
+                    changePassErrorMsg.textContent = '❌ Senha atual incorreta.';
                     changePassErrorMsg.classList.remove('hidden');
                 }
-            });
+            }
         });
     }
 
@@ -957,17 +802,17 @@ Mensagem gerada de forma automatizada pelo site institucional FCPN.`;
 
             if (input && input.type === 'password') {
                 input.type = 'text';
-                if (eyeIcon) eyeIcon.classList.remove('hidden'); // Exibe olho aberto
-                if (eyeOffIcon) eyeOffIcon.classList.add('hidden'); // Oculta olho cortado
+                if (eyeIcon) eyeIcon.classList.remove('hidden');
+                if (eyeOffIcon) eyeOffIcon.classList.add('hidden');
             } else if (input) {
                 input.type = 'password';
-                if (eyeIcon) eyeIcon.classList.add('hidden'); // Oculta olho aberto
-                if (eyeOffIcon) eyeOffIcon.classList.remove('hidden'); // Exibe olho cortado
+                if (eyeIcon) eyeIcon.classList.add('hidden');
+                if (eyeOffIcon) eyeOffIcon.classList.remove('hidden');
             }
         });
     });
 
-    // Gerenciamento do Modal Administrativo de Senhas de Membros
+    // Admin alterar senha de membro
     const adminPasswordModal = document.getElementById('admin-password-modal');
     const closeAdminModalBtn = document.getElementById('close-admin-modal-btn');
     const adminPasswordForm = document.getElementById('admin-password-form');
@@ -978,8 +823,6 @@ Mensagem gerada de forma automatizada pelo site institucional FCPN.`;
         closeAdminModalBtn.addEventListener('click', () => {
             adminPasswordModal.classList.add('hidden');
         });
-
-        // Fechar ao clicar fora do modal (no overlay)
         adminPasswordModal.addEventListener('click', (e) => {
             if (e.target === adminPasswordModal) {
                 adminPasswordModal.classList.add('hidden');
@@ -990,58 +833,37 @@ Mensagem gerada de forma automatizada pelo site institucional FCPN.`;
     if (adminPasswordForm) {
         adminPasswordForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
             const memberId = document.getElementById('admin-modal-member-id').value;
             const newPassword = document.getElementById('admin-modal-new-pass').value;
-            const adminEmail = sessionStorage.getItem('fcpn_member_email');
+            const userRole = sessionStorage.getItem('fcpn_member_role');
 
-            if (!adminEmail) {
-                alert('Sessão expirada. Faça login novamente.');
-                return;
-            }
-
+            if (userRole !== 'admin') return;
+            
             if (adminModalErrorMsg) adminModalErrorMsg.classList.add('hidden');
             if (adminModalSuccessMsg) adminModalSuccessMsg.classList.add('hidden');
 
-            fetch(`${apiBaseUrl}/api/admin/change-password`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-User-Email': adminEmail
-                },
-                body: JSON.stringify({
-                    user_id: parseInt(memberId),
-                    new_password: newPassword
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    if (adminModalSuccessMsg) {
-                        adminModalSuccessMsg.textContent = '✔️ ' + data.message;
-                        adminModalSuccessMsg.classList.remove('hidden');
-                    }
-                    adminPasswordForm.reset();
-                    // Fecha o modal após 1.5 segundos
-                    setTimeout(() => {
-                        if (adminPasswordModal) adminPasswordModal.classList.add('hidden');
-                    }, 1500);
-                } else {
-                    if (adminModalErrorMsg) {
-                        adminModalErrorMsg.textContent = '❌ ' + data.message;
-                        adminModalErrorMsg.classList.remove('hidden');
-                    }
+            let db = getMockDB();
+            let user = db.find(m => m.id === parseInt(memberId));
+            if (user) {
+                user.password = newPassword;
+                saveMockDB(db);
+                if (adminModalSuccessMsg) {
+                    adminModalSuccessMsg.textContent = '✔️ Senha alterada com sucesso!';
+                    adminModalSuccessMsg.classList.remove('hidden');
                 }
-            })
-            .catch(err => {
-                console.error('Erro ao alterar senha do membro pelo admin:', err);
+                adminPasswordForm.reset();
+                setTimeout(() => {
+                    if (adminPasswordModal) adminPasswordModal.classList.add('hidden');
+                }, 1500);
+            } else {
                 if (adminModalErrorMsg) {
-                    adminModalErrorMsg.textContent = '❌ Ocorreu um erro no servidor.';
+                    adminModalErrorMsg.textContent = '❌ Membro não encontrado.';
                     adminModalErrorMsg.classList.remove('hidden');
                 }
-            });
+            }
         });
     }
+
 
     /* ==========================================================================
        9. CONTROLE DE CAMPANHAS DE SAÚDE (OUTUBRO ROSA & NOVEMBRO AZUL)

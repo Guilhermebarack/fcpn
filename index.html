@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundação do Cérebro Paulo Niemeyer | FCPN</title>
+
+    <!-- Meta Tags de SEO -->
+    <meta name="description"
+        content="Centro de Estudos e Pesquisas em Neurociências - Fundação do Cérebro Paulo Niemeyer (FCPN). Promovendo assistência, ensino, pesquisa e inovação em saúde.">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="FCPN">
+    <link rel="icon" href="imagens/favicon.png" type="image/png">
+
+    <!-- CSS Local -->
+    <link rel="stylesheet" href="style.css?v=1.2">
+</head>
+
+<body class="dark-theme">
+
+    <!-- Fundo de Sinapses Neurais Interativo -->
+    <canvas id="synapse-canvas"></canvas>
+
+    <!-- Tela de Carregamento Premium -->
+    <div id="loader" class="loader-wrapper">
+        <div class="loader-content">
+            <div class="neural-loader">
+                <div class="pulse-circle"></div>
+                <div class="pulse-ring"></div>
+            </div>
+            <h2>FCPN</h2>
+            <p>Carregando Conexões...</p>
+        </div>
+    </div>
+
+    <!-- Cabeçalho / Menu de Navegação -->
+    <header class="glass-header">
+        <div class="header-container">
+            <a href="#home" class="logo-link" id="logo-trigger">
+                <img src="imagens/logo.png" alt="FCPN Logo" class="logo-img">
+            </a>
+
+            <nav class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link active" data-target="home">Início</a>
+                <a href="#sobre" class="nav-link" data-target="sobre">Sobre Nós</a>
+                <a href="#missao" class="nav-link" data-target="missao">Missão & Valores</a>
+                <a href="#transparencia" class="nav-link" data-target="transparencia">Transparência</a>
+                <a href="#regimento" class="nav-link" data-target="regimento">Regimento Interno</a>
+                <a href="#comite" class="nav-link" data-target="comite">Comitê de Ética</a>
+                <a href="#ouvidoria" class="nav-link" data-target="ouvidoria">Ouvidoria</a>
+                <a href="#trabalhe" class="nav-link" data-target="trabalhe">Trabalhe Conosco</a>
+                <a href="#membros" class="nav-link" data-target="membros">Área de Membros</a>
+            </nav>
+
+            <div class="header-actions">
+                <button id="theme-toggle" class="icon-btn" aria-label="Alternar Tema">
+                    <!-- Ícone de Sol (Light) -->
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4" />
+                        <path
+                            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+                    </svg>
+                    <!-- Ícone de Lua (Dark) -->
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                    </svg>
+                </button>
+
+                <button id="mobile-menu-btn" class="icon-btn mobile-only" aria-label="Menu Celular">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12" />
+                        <line x1="4" x2="20" y1="6" y2="6" />
+                        <line x1="4" x2="20" y1="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal SPA -->
+    <main class="main-content">
+
+        <!-- SEÇÃO INÍCIO (HOME) -->
+        <section id="home" class="section-pane active">
+            <div class="hero-container">
+                <div class="hero-text-content">
+                    <span class="badge">Centro de Estudos e Pesquisas em Neurociências</span>
+                    <h1>Fundação do Cérebro <br><span class="gradient-text">Paulo Niemeyer</span></h1>
+                    <p>Fundação privada de interesse social dedicada ao avanço das neurociências,
+                        desenvolvimento científico de ponta, assistência médica e integração técnico-científica com foco
+                        no bem-estar humano.</p>
+                    <div class="hero-buttons">
+                        <a href="#sobre" class="btn primary-btn btn-nav-trigger" data-target="sobre">Conheça a
+                            Estrutura</a>
+                        <a href="#missao" class="btn secondary-btn btn-nav-trigger" data-target="missao">Missão e
+                            Valores</a>
+                    </div>
+                </div>
+                <div class="hero-image-content">
+                    <div class="glass-card brain-illustration">
+                        <div class="brain-svg-container">
+                            <img src="imagens/brain_new.png" alt="Pesquisa Aplicada" class="animated-brain">
+                        </div>
+                        <div class="card-caption">
+                            <h4>Pesquisa Aplicada</h4>
+                            <p>Desvendando os mistérios do cérebro humano.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cards de Destaque Rápido -->
+            <div class="features-grid container">
+                <div class="glass-card feature-card">
+                    <div class="icon-wrapper cyan-glow">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M4.8 2.2c0-.3.3-.6.6-.6h13.2c.3 0 .6.3.6.6v19.6c0 .3-.3.6-.6.6H5.4c-.3 0-.6-.3-.6-.6V2.2Z" />
+                            <path d="M12 2v20M4.8 12h14.4" />
+                        </svg>
+                    </div>
+                    <h3>Instituto Estadual do Cérebro</h3>
+                    <p>FCPN apoia a excelência e gestão qualificada das neurociências em parceria com o SUS no IECPN.
+                    </p>
+                </div>
+                <div class="glass-card feature-card">
+                    <div class="icon-wrapper purple-glow">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="m9.09 9 2.18 2a1 1 0 0 0 1.41 0L15 9M12 15h.01" />
+                        </svg>
+                    </div>
+                    <h3>Estudos & Investigação</h3>
+                    <p>Fomento à produção científica, inovação tecnológica e formação de excelência para
+                        neurocirurgiões.</p>
+                </div>
+                <div class="glass-card feature-card">
+                    <div class="icon-wrapper orange-glow">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                        </svg>
+                    </div>
+                    <h3>Transparência & Ética</h3>
+                    <p>Governança robusta, conformidade institucional e total clareza na aplicação de recursos.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO SOBRE NÓS -->
+        <section id="sobre" class="section-pane">
+            <div class="container">
+                <div class="section-title">
+                    <span class="badge">Quem Somos</span>
+                    <h2>Estrutura Organizacional</h2>
+                    <p class="section-subtitle">Conheça a diretoria e conselhos que regem a Fundação do Cérebro Paulo
+                        Niemeyer.</p>
+                </div>
+
+                <div class="org-layout">
+                    <!-- Presidência e Diretoria -->
+                    <div class="org-section">
+                        <h3 class="org-title-bar">Presidência & Diretoria Executiva</h3>
+                        <div class="cards-cluster">
+                            <div class="glass-card member-card leader">
+                                <div class="role">Diretor Presidente</div>
+                                <h4>Dr. José Antonio Damian Guasti</h4>
+                                <p class="tag">Médico / Liderança Executiva</p>
+                            </div>
+                            <div class="glass-card member-card">
+                                <div class="role">Diretor Jurídico</div>
+                                <h4>Prof. Dr. Augusto Moutella Nepomuceno</h4>
+                                <p class="tag">Advocacia / Compliance</p>
+                            </div>
+                            <div class="glass-card member-card">
+                                <div class="role">Diretora Administrativa</div>
+                                <h4>Raimunda Nonata da Silva Brandão</h4>
+                                <p class="tag">Gestão Administrativa e Financeira</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Conselhos -->
+                    <div class="org-section">
+                        <h3 class="org-title-bar">Conselho Curador</h3>
+                        <div class="cards-cluster grid-3">
+                            <div class="glass-card member-card min">
+                                <h4>Paulo Cesar Silva Pereira de Souza</h4>
+                                <span class="badge-tag">Médico</span>
+                            </div>
+                            <div class="glass-card member-card min">
+                                <h4>Gabriela Salomão Vaz Moreira</h4>
+                                <span class="badge-tag">Advogada</span>
+                            </div>
+                            <div class="glass-card member-card min">
+                                <h4>Maria Carolina Sanchez da Costa</h4>
+                                <span class="badge-tag">Administradora</span>
+                            </div>
+                            <div class="glass-card member-card min">
+                                <h4>George Eduardo Ripper Vianna</h4>
+                                <span class="badge-tag">Advogado</span>
+                            </div>
+                            <div class="glass-card member-card min">
+                                <h4>Luiz Augusto Maltoni Junior</h4>
+                                <span class="badge-tag">Médico</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-2-col">
+                        <div class="org-section">
+                            <h3 class="org-title-bar">Conselho Fiscal</h3>
+                            <div class="cards-cluster vertical">
+                                <div class="glass-card member-card min inline">
+                                    <div class="dot cyan"></div>
+                                    <div>
+                                        <h4>Maria Helena Pettersson</h4>
+                                        <p>Auditora</p>
+                                    </div>
+                                </div>
+                                <div class="glass-card member-card min inline">
+                                    <div class="dot purple"></div>
+                                    <div>
+                                        <h4>Reinhard Braun</h4>
+                                        <p>Engenheiro</p>
+                                    </div>
+                                </div>
+                                <div class="glass-card member-card min inline">
+                                    <div class="dot orange"></div>
+                                    <div>
+                                        <h4>Patrick de Pelúcio</h4>
+                                        <p>Contador</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="org-section">
+                            <h3 class="org-title-bar">Conselho de Instituidores</h3>
+                            <div class="cards-cluster vertical">
+                                <div class="glass-card member-card curador">
+                                    <div class="role font-gold">Presidente</div>
+                                    <h4>Paulo Niemeyer Soares Filho</h4>
+                                    <p class="tag">Instituidor Fundador</p>
+                                </div>
+                                <div class="glass-card member-card min inline">
+                                    <div class="dot gold"></div>
+                                    <div>
+                                        <h4>Cândido Niemeyer Soares</h4>
+                                        <p>Conselheiro</p>
+                                    </div>
+                                </div>
+                                <div class="glass-card member-card min inline">
+                                    <div class="dot gold"></div>
+                                    <div>
+                                        <h4>Luiz Oscar Niemeyer Soares</h4>
+                                        <p>Conselheiro</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO MISSÃO, VALORES E OBJETIVOS -->
+        <section id="missao" class="section-pane">
+            <div class="container">
+                <div class="section-title">
+                    <span class="badge">Nossos Fundamentos</span>
+                    <h2>Missão, Valores & Objetivos</h2>
+                    <p class="section-subtitle">Os pilares éticos e operacionais que guiam cada ação e projeto da nossa
+                        fundação.</p>
+                </div>
+
+                <div class="fundamental-hero glass-card">
+                    <div class="fundamental-icon">🎯</div>
+                    <div class="fundamental-desc">
+                        <h3>Nossa Missão</h3>
+                        <p>Promover a gestão, operacionalização e execução de serviços de saúde de alta complexidade com
+                            excelência, integrando assistência, ensino, pesquisa e inovação em neurociências, de forma a
+                            contribuir para o fortalecimento do Sistema Único de Saúde, a qualificação do atendimento à
+                            população e a geração de conhecimento científico aplicado, assegurando eficiência,
+                            humanização e resultados clínicos de elevado padrão.</p>
+                    </div>
+                </div>
+
+                <div class="grid-2-col-equal">
+                    <div>
+                        <h3 class="column-title"><span class="highlight-cyan">Valores</span> Institucionais</h3>
+                        <div class="values-accordion">
+                            <div class="value-item glass-card">
+                                <strong>💡 Excelência técnico-científica</strong>
+                                <p>Compromisso com padrões elevados de qualidade assistencial baseados em evidências,
+                                    inovação tecnológica e melhores práticas de gestão em saúde.</p>
+                            </div>
+                            <div class="value-item glass-card">
+                                <strong>⚖️ Ética e integridade institucional</strong>
+                                <p>Atuação pautada na legalidade, transparência, probidade administrativa e respeito às
+                                    normas de governança do terceiro setor.</p>
+                            </div>
+                            <div class="value-item glass-card">
+                                <strong>🤝 Compromisso com o interesse público</strong>
+                                <p>Priorização do bem-estar coletivo, universalidade e equidade no acesso aos serviços
+                                    de saúde do SUS.</p>
+                            </div>
+                            <div class="value-item glass-card">
+                                <strong>❤️ Humanização do cuidado</strong>
+                                <p>Valorização da dignidade do paciente, com foco em acolhimento, empatia, segurança e
+                                    excelente experiência do usuário.</p>
+                            </div>
+                            <div class="value-item glass-card">
+                                <strong>📈 Eficiência e responsabilidade na gestão</strong>
+                                <p>Utilização racional e otimizada de recursos com foco em resultados sólidos e
+                                    sustentabilidade financeira.</p>
+                            </div>
+                            <div class="value-item glass-card">
+                                <strong>🎓 Integração assistência, ensino e pesquisa</strong>
+                                <p>Promoção de um ecossistema que favoreça a formação médica continuada e a inovação
+                                    tecnológica aplicada à prática clínica.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="column-title"><span class="highlight-purple">Objetivos</span> Estratégicos</h3>
+                        <div class="objectives-list">
+                            <div class="obj-card glass-card">
+                                <div class="num">01</div>
+                                <div class="obj-text">
+                                    <h4>Gestão do IECPN</h4>
+                                    <p>Assegurar a gestão eficiente e qualificada do Instituto Estadual do Cérebro Paulo
+                                        Niemeyer com foco em resultados.</p>
+                                </div>
+                            </div>
+                            <div class="obj-card glass-card">
+                                <div class="num">02</div>
+                                <div class="obj-text">
+                                    <h4>Alta Complexidade</h4>
+                                    <p>Ofertar atendimento especializado em neurociências com elevado padrão técnico,
+                                        reduzindo desfechos adversos.</p>
+                                </div>
+                            </div>
+                            <div class="obj-card glass-card">
+                                <div class="num">03</div>
+                                <div class="obj-text">
+                                    <h4>Fortalecimento do SUS</h4>
+                                    <p>Atuar de forma integrada à rede pública de saúde, ampliando o acesso a serviços
+                                        especializados.</p>
+                                </div>
+                            </div>
+                            <div class="obj-card glass-card">
+                                <div class="num">04</div>
+                                <div class="obj-text">
+                                    <h4>Ensino & Capacitação</h4>
+                                    <p>Desenvolver programas de residência médica, especializações e educação continuada
+                                        na área de saúde.</p>
+                                </div>
+                            </div>
+                            <div class="obj-card glass-card">
+                                <div class="num">05</div>
+                                <div class="obj-text">
+                                    <h4>Pesquisa e Inovação</h4>
+                                    <p>Estimular a produção científica, a pesquisa clínica e a incorporação de
+                                        tecnologias neurocirúrgicas de ponta.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO PORTAL DA TRANSPARÊNCIA -->
+        <section id="transparencia" class="section-pane">
+            <div class="container">
+                <div class="section-title">
+                    <span class="badge">Controle e Governança</span>
+                    <h2>Portal da Transparência</h2>
+                    <p class="section-subtitle">Em conformidade com a legislação de transparência do terceiro setor,
+                        disponibilizamos nossos documentos e relatórios.</p>
+                </div>
+
+                <div class="search-filter-bar glass-card">
+                    <div class="search-input-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8" />
+                            <path d="m21 21-4.3-4.3" />
+                        </svg>
+                        <input type="text" id="doc-search" placeholder="Buscar documentos por ano, título ou tipo...">
+                    </div>
+                    <div class="filter-options">
+                        <button class="filter-btn active" data-filter="all">Todos</button>
+                        <button class="filter-btn" data-filter="relatorio">Relatórios</button>
+                        <button class="filter-btn" data-filter="balanco">Balanço</button>
+                        <button class="filter-btn" data-filter="estatuto">Estatuto</button>
+                    </div>
+                </div>
+
+                <div class="documents-grid" id="documents-container">
+                    <div class="glass-card doc-card" data-category="estatuto">
+                        <div class="doc-icon">📄</div>
+                        <div class="doc-info">
+                            <span class="doc-tag">Estatuto</span>
+                            <h4>Estatuto Social Atualizado</h4>
+                            <p>Estatuto social consolidado da Fundação do Cérebro Paulo Niemeyer.</p>
+                        </div>
+                        <a href="documentos/Estatuto-FCPN.pdf" target="_blank" class="download-link">Visualizar PDF</a>
+                    </div>
+
+                    <div class="glass-card doc-card" data-category="balanco">
+                        <div class="doc-icon">📊</div>
+                        <div class="doc-info">
+                            <span class="doc-tag">Balanço Patrimonial</span>
+                            <h4>Demonstrações Financeiras 2025</h4>
+                            <p>Balanço patrimonial e demonstrações financeiras do exercício de 2025 auditadas.</p>
+                        </div>
+                        <a href="#" class="download-link unavailable">Em processamento</a>
+                    </div>
+                    <div class="glass-card doc-card" data-category="relatorio">
+                        <div class="doc-icon">📈</div>
+                        <div class="doc-info">
+                            <span class="doc-tag">Relatório</span>
+                            <h4>Relatório de Atividades Assistenciais 2025</h4>
+                            <p>Compilado de todas as atividades de assistência, ensino e pesquisa desenvolvidas.</p>
+                        </div>
+                        <a href="#" class="download-link unavailable">Em processamento</a>
+                    </div>
+
+                    <div class="glass-card doc-card" data-category="balanco">
+                        <div class="doc-icon">📊</div>
+                        <div class="doc-info">
+                            <span class="doc-tag">Balanço Patrimonial</span>
+                            <h4>Demonstrações Financeiras 2024</h4>
+                            <p>Balanço patrimonial e notas explicativas referentes ao exercício financeiro de 2024.</p>
+                        </div>
+                        <a href="documentos/Balanco-FCPN-2024.pdf" target="_blank" class="download-link">Visualizar
+                            PDF</a>
+                    </div>
+
+                    <div class="glass-card doc-card" data-category="relatorio">
+                        <div class="doc-icon">📈</div>
+                        <div class="doc-info">
+                            <span class="doc-tag">Relatório</span>
+                            <h4>Relatório Anual de Atividades 2024</h4>
+                            <p>Consolidado descritivo das metas científicas e de atendimento assistencial alcançadas em
+                                2024.</p>
+                        </div>
+                        <a href="documentos/Relatorio-Atividades-2024.pdf" target="_blank"
+                            class="download-link">Visualizar PDF</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO REGIMENTO INTERNO -->
+        <section id="regimento" class="section-pane">
+            <div class="container">
+                <div class="section-title">
+                    <span class="badge">Normativas</span>
+                    <h2>Regimento Interno FCPN</h2>
+                    <p class="section-subtitle">Regulamento interno contendo as diretrizes de governança administrativa,
+                        operacional e científica da Fundação.</p>
+                </div>
+
+                <div class="regimento-viewer-layout">
+                    <!-- Menu lateral de tópicos -->
+                    <aside class="regimento-sidebar glass-card">
+                        <h3>Capítulos</h3>
+                        <nav class="regimento-nav" id="regimento-nav">
+                            <button class="reg-chapter-btn active" data-chapter="intro">Disposições
+                                Preliminares</button>
+                            <button class="reg-chapter-btn" data-chapter="estrutura">Da Estrutura Orgânica</button>
+                            <button class="reg-chapter-btn" data-chapter="competencias">Das Competências</button>
+                            <button class="reg-chapter-btn" data-chapter="recursos">Dos Recursos Financeiros</button>
+                            <button class="reg-chapter-btn" data-chapter="pesquisa">Das Atividades de Pesquisa</button>
+                        </nav>
+                    </aside>
+
+                    <!-- Conteúdo do Regimento Interno interativo -->
+                    <div class="regimento-content-wrapper glass-card">
+                        <div class="regimento-search-box">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8" />
+                                <path d="m21 21-4.3-4.3" />
+                            </svg>
+                            <input type="text" id="regimento-search-input"
+                                placeholder="Pesquisar artigos, termos ou seções no regimento...">
+                        </div>
+
+                        <div id="regimento-text-content" class="regimento-text">
+                            <!-- Conteúdo do Capítulo Ativo -->
+                            <div class="reg-section-block active" id="chapter-intro">
+                                <h3>Capítulo I - Das Disposições Preliminares</h3>
+                                <p><strong>Artigo 1º.</strong> A Fundação do Cérebro Paulo Niemeyer – Centro de Estudos
+                                    e Pesquisas em Neurociências (FCPN), instituída conforme escritura pública, rege-se
+                                    pelo Estatuto Social, por este Regimento Interno e pela legislação civil e
+                                    administrativa aplicável.</p>
+                                <p><strong>Artigo 2º.</strong> A FCPN possui autonomia administrativa, patrimonial e
+                                    financeira, com prazo de duração indeterminado, tendo sede e foro na Cidade do Rio
+                                    de Janeiro.</p>
+                                <p><strong>Artigo 3º.</strong> O presente regimento tem como finalidade detalhar a
+                                    organização funcional da fundação, estabelecendo as atribuições de cada conselho e
+                                    diretoria, bem como as diretrizes operacionais para a gestão hospitalar e
+                                    científica.</p>
+                            </div>
+
+                            <div class="reg-section-block" id="chapter-estrutura">
+                                <h3>Capítulo II - Da Estrutura Orgânica</h3>
+                                <p><strong>Artigo 4º.</strong> A estrutura funcional e de decisão da FCPN é composta
+                                    pelos seguintes órgãos:</p>
+                                <ul>
+                                    <li>I. Conselho de Instituidores;</li>
+                                    <li>II. Conselho Curador;</li>
+                                    <li>III. Diretoria Executiva;</li>
+                                    <li>IV. Conselho Fiscal;</li>
+                                    <li>V. Comitê de Ética em Pesquisa (CEP).</li>
+                                </ul>
+                                <p><strong>Artigo 5º.</strong> Os conselheiros e diretores exercerão suas atividades em
+                                    conformidade com as regras de integridade e probidade que governam as parcerias
+                                    públicas e de saúde.</p>
+                            </div>
+
+                            <div class="reg-section-block" id="chapter-competencias">
+                                <h3>Capítulo III - Das Competências da Diretoria</h3>
+                                <p><strong>Artigo 6º.</strong> Compete ao Diretor Presidente a representação legal,
+                                    ativa e passiva da fundação, em juízo ou fora dele, cabendo-lhe a assinatura de
+                                    convênios, contratos de gestão, parcerias técnico-científicas e atos administrativos
+                                    de admissão e demissão de pessoal.</p>
+                                <p><strong>Artigo 7º.</strong> Compete ao Diretor Jurídico o assessoramento normativo de
+                                    todos os conselhos, validação de contratos e processos de licitação, e representação
+                                    de conformidade (compliance) regulatória.</p>
+                                <p><strong>Artigo 8º.</strong> Compete à Diretoria Administrativa a coordenação
+                                    financeira, elaboração de balanços trimestrais, tesouraria, compras corporativas e
+                                    supervisão das rotinas de recursos humanos e infraestrutura.</p>
+                            </div>
+
+                            <div class="reg-section-block" id="chapter-recursos">
+                                <h3>Capítulo IV - Dos Recursos Financeiros e Patrimônio</h3>
+                                <p><strong>Artigo 9º.</strong> O patrimônio da FCPN é constituído pelos bens descritos
+                                    no ato de sua instituição e por todos aqueles que venha a adquirir legalmente no
+                                    desenvolvimento de suas atividades.</p>
+                                <p><strong>Artigo 10º.</strong> Constituem receitas da fundação:</p>
+                                <ul>
+                                    <li>a) As dotações orçamentárias provenientes de convênios e contratos de gestão com
+                                        o poder público;</li>
+                                    <li>b) As doações, auxílios e contribuições de pessoas físicas ou jurídicas de
+                                        direito público ou privado;</li>
+                                    <li>c) Rendimentos provenientes de aplicações financeiras e de seu patrimônio
+                                        imobiliário;</li>
+                                    <li>d) Taxas de inscrição em cursos de especialização médica e eventos acadêmicos
+                                        promovidos pela fundação.</li>
+                                </ul>
+                            </div>
+
+                            <div class="reg-section-block" id="chapter-pesquisa">
+                                <h3>Capítulo V - Das Atividades de Pesquisa e Ética</h3>
+                                <p><strong>Artigo 11º.</strong> Todos os estudos clínicos, ensaios experimentais e
+                                    atividades de iniciação científica promovidas no âmbito da fundação ou do IECPN
+                                    dependem obrigatoriamente da aprovação prévia do Comitê de Ética em Pesquisa
+                                    (CEP-IECPN).</p>
+                                <p><strong>Artigo 12º.</strong> A fundação assegurará recursos para o fomento de linhas
+                                    de pesquisa voltadas para neurocirurgia complexa, tumores cerebrais, patologias
+                                    vasculares do sistema nervoso central e neuropsicologia.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO COMITÊ DE ÉTICA -->
+        <section id="comite" class="section-pane">
+            <div class="container">
+                <div class="section-title">
+                    <span class="badge">Pesquisa Científica</span>
+                    <h2>Comitê de Ética em Pesquisa</h2>
+                    <p class="section-subtitle">O CEP-IECPN é um órgão colegiado interdisciplinar responsável pela
+                        avaliação ética de todos os projetos científicos com seres humanos.</p>
+                </div>
+
+                <div class="comite-layout">
+                    <!-- Introdução do Comitê -->
+                    <div class="glass-card comite-intro">
+                        <h3>CEP - Instituto Estadual do Cérebro Paulo Niemeyer</h3>
+                        <p>O comitê destina-se à realização de pesquisas sempre sob a égide dos princípios éticos
+                            universais aplicados à investigação científica. Avaliamos projetos desenvolvidos na
+                            instituição e em parceiros, atuando como parecerista ad-hoc em consonância com as normativas
+                            éticas nacionais e a Lei nº 14.874/2024.</p>
+
+                        <div class="info-badges">
+                            <div class="info-badge">
+                                <span class="label">Funcionamento</span>
+                                <span class="val">Segunda a Sexta - 07h às 16h</span>
+                            </div>
+                            <div class="info-badge">
+                                <span class="label">Contato</span>
+                                <span class="val">(21) 2277-9449 (Ramal 9449)</span>
+                            </div>
+                            <div class="info-badge">
+                                <span class="label">E-mail</span>
+                                <span class="val">cep.iecpn@gmail.com</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Membros do Comitê -->
+                    <div class="org-section">
+                        <h3 class="org-title-bar">Coordenação do Comitê</h3>
+                        <div class="grid-2-col">
+                            <div class="glass-card member-card leader">
+                                <div class="role">Coordenadora</div>
+                                <h4>Iana Paes d’ Assumpção Vital</h4>
+                                <p class="tag">Fisioterapeuta</p>
+                            </div>
+                            <div class="glass-card member-card leader purple">
+                                <div class="role">Vice-coordenador</div>
+                                <h4>Gonzalo Castillo Pérez</h4>
+                                <p class="tag">Médico</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="org-section">
+                        <h3 class="org-title-bar">Membros do Colegiado</h3>
+                        <div class="members-collapsible-grid">
+                            <div class="glass-card member-card min select">
+                                <h4>Bruno Gonçalves Silva</h4>
+                                <p>Médico</p>
+                            </div>
+                            <div class="glass-card member-card min select">
+                                <h4>Christhiane Fialho Gonsalves</h4>
+                                <p>Médica</p>
+                            </div>
+                            <div class="glass-card member-card min select">
+                                <h4>Cristiane Mattos de Guimarães</h4>
+                                <p>Psicóloga</p>
+                            </div>
+                            <div class="glass-card member-card min select">
+                                <h4>Eelco van Duinkerken</h4>
+                                <p>Neuropsicólogo</p>
+                            </div>
+                            <div class="glass-card member-card min select">
+                                <h4>Fábio de Paiva Gonçalves</h4>
+                                <p>Enfermeiro</p>
+                            </div>
+                            <div class="glass-card member-card min select">
+                                <h4>Matheus Leandro Leite Lima</h4>
+                                <p>Assistente Social</p>
+                            </div>
+                            <div class="glass-card member-card min select">
+                                <h4>Roberta de Lima Pontes</h4>
+                                <p>Fisioterapeuta</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-2-col">
+                        <div class="org-section">
+                            <h3 class="org-title-bar">Suplentes</h3>
+                            <div class="cards-cluster vertical">
+                                <div class="glass-card member-card min inline">
+                                    <div class="dot purple"></div>
+                                    <div>
+                                        <h4>Carla Luisy de Oliveira Lopes</h4>
+                                        <p>Psicóloga</p>
+                                    </div>
+                                </div>
+                                <div class="glass-card member-card min inline">
+                                    <div class="dot purple"></div>
+                                    <div>
+                                        <h4>Nina Ventura Wilner</h4>
+                                        <p>Médica</p>
+                                    </div>
+                                </div>
+                                <div class="glass-card member-card min inline">
+                                    <div class="dot purple"></div>
+                                    <div>
+                                        <h4>Sandro Miguel Souza de Lima</h4>
+                                        <p>Médico</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="org-section">
+                            <h3 class="org-title-bar">Representantes dos Participantes</h3>
+                            <div class="cards-cluster vertical">
+                                <div class="glass-card member-card min inline">
+                                    <div class="dot orange"></div>
+                                    <div>
+                                        <h4>Maria Pia Bastos-Tigre Buchheim</h4>
+                                        <p>ABBR (Assoc. Beneficente de Reabilitação)</p>
+                                    </div>
+                                </div>
+                                <div class="glass-card member-card min inline">
+                                    <div class="dot orange"></div>
+                                    <div>
+                                        <h4>Tereza Filomena Magalhães da Cruz</h4>
+                                        <p>Rede Nacional Feminista de Saúde (RFS)</p>
+                                    </div>
+                                </div>
+                                <div class="glass-card member-card min inline">
+                                    <div class="dot cyan"></div>
+                                    <div>
+                                        <h4>Gelsilene Gonçalves dos Santos</h4>
+                                        <p>Secretária Executiva do CEP</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO OUVIDORIA -->
+        <section id="ouvidoria" class="section-pane">
+            <div class="container">
+                <div class="section-title">
+                    <span class="badge">Canal de Escuta</span>
+                    <h2>Ouvidoria FCPN</h2>
+                    <p class="section-subtitle">Canal ético, seguro e confidencial para o registro de sugestões,
+                        denúncias, elogios ou reclamações.</p>
+                </div>
+
+                <div class="grid-2-col">
+                    <div class="ouvidoria-info-pane">
+                        <div class="glass-card border-left-cyan">
+                            <h3>Por que entrar em contato?</h3>
+                            <p>A Ouvidoria é a ponte direta de comunicação. Toda mensagem é analisada com absoluto
+                                sigilo e imparcialidade por nossa equipe de integridade.</p>
+
+                            <ul class="styled-list">
+                                <li><strong>Reclamações:</strong> Críticas relativas a atendimentos ou rotinas.</li>
+                                <li><strong>Sugestões:</strong> Idéias de otimização operacional ou médica.</li>
+                                <li><strong>Elogios:</strong> Reconhecimento de equipes assistenciais ou conselhos.</li>
+                                <li><strong>Denúncias:</strong> Reportes confidenciais de eventuais inconformidades
+                                    éticas.</li>
+                            </ul>
+                        </div>
+
+                        <div class="glass-card contact-card">
+                            <div class="mail-icon">📧</div>
+                            <div>
+                                <h4>E-mail Direto</h4>
+                                <a href="mailto:ouvidoria.fcpn@gmail.com">ouvidoria.fcpn@gmail.com</a>
+                                <p>Sua identidade pode ser mantida de forma anônima, se desejado.</p>
+                            </div>
+                        </div>
+
+                        <div class="glass-card contact-card">
+                            <div class="mail-icon" style="color: #25D366;">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32"
+                                    fill="currentColor" style="display: inline-block; vertical-align: middle;">
+                                    <path
+                                        d="M12.012 2c-5.506 0-9.988 4.482-9.988 9.988 0 1.76.46 3.473 1.336 4.988l-1.42 5.187 5.309-1.392c1.462.798 3.102 1.217 4.76 1.217 5.505 0 9.988-4.482 9.988-9.988 0-2.659-1.036-5.158-2.923-7.046C17.17 3.036 14.671 2 12.012 2zm0 1.637c2.22 0 4.31.865 5.885 2.44 1.575 1.576 2.443 3.665 2.443 5.91 0 4.604-3.746 8.351-8.35 8.351-1.48 0-2.93-.393-4.205-1.139l-.302-.18-3.125.82.833-3.045-.196-.314c-.813-1.298-1.242-2.802-1.242-4.35 0-4.604 3.746-8.352 8.352-8.352zm-3.55 3.518c-.194 0-.422.049-.613.262-.191.212-.73.712-.73 1.737 0 1.025.746 2.013.85 2.15.103.14 1.466 2.24 3.553 3.14.496.213.882.34 1.185.437.499.16.953.137 1.312.083.4-.06 1.229-.503 1.402-1.012.174-.51.174-.946.122-1.037-.052-.09-.193-.14-.403-.246-.21-.106-1.242-.614-1.433-.684-.191-.07-.33-.106-.47.106-.14.212-.543.684-.665.824-.122.14-.244.156-.454.05-.21-.106-.887-.327-1.69-1.044-.624-.557-1.045-1.248-1.167-1.46-.122-.213-.013-.328.093-.433.096-.095.21-.245.316-.367.106-.122.14-.21.21-.35.07-.14.035-.262-.018-.367-.052-.106-.47-1.132-.644-1.55-.17-.41-.357-.35-.49-.357-.123-.006-.264-.007-.406-.007z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>WhatsApp Ouvidoria</h4>
+                                <a href="https://wa.me/5521922062203" target="_blank">(21) 92206-2203</a>
+                                <p>Fale conosco e registre sua manifestação via WhatsApp.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Formulário Interativo -->
+                    <div class="glass-card form-card">
+                        <h3>Enviar Manifestação</h3>
+                        <form id="ouvidoria-form" class="custom-form">
+                            <div class="form-group">
+                                <label for="form-type">Tipo de Manifestação *</label>
+                                <select id="form-type" required>
+                                    <option value="" disabled selected>Selecione uma opção...</option>
+                                    <option value="Sugestão">Sugestão</option>
+                                    <option value="Elogio">Elogio</option>
+                                    <option value="Reclamação">Reclamação</option>
+                                    <option value="Denúncia">Denúncia / Reporte Ético</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="form-name">Nome Completo (Opcional)</label>
+                                <input type="text" id="form-name" placeholder="Deixe em branco para anonimato">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="form-contact">E-mail ou Telefone para retorno *</label>
+                                <input type="text" id="form-contact" placeholder="Como podemos te responder?" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="form-message">Descrição Detalhada *</label>
+                                <textarea id="form-message" rows="5"
+                                    placeholder="Forneça o máximo de detalhes possível, incluindo datas e nomes, se aplicável."
+                                    required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn primary-btn full-width">Gerar Mensagem de Envio</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO TRABALHE CONOSCO -->
+        <section id="trabalhe" class="section-pane">
+            <div class="container">
+                <div class="section-title">
+                    <span class="badge">Carreira</span>
+                    <h2>Trabalhe Conosco</h2>
+                    <p class="section-subtitle">Junte-se à nossa equipe dedicada a transformar a saúde e a ciência em
+                        neurociências.</p>
+                </div>
+
+                <div class="career-hero glass-card">
+                    <div class="career-text">
+                        <h3>Muito prazer, somos O CÉREBRO.</h3>
+                        <p>A Fundação do Cérebro Paulo Niemeyer é movida por pessoas que acreditam no cuidado de
+                            excelência e no avanço científico aplicado. Se você é um profissional qualificado, ético e
+                            se identifica com nossos propósitos, acompanhe as vagas abaixo ou cadastre seu currículo em
+                            nossa base de dados.</p>
+                    </div>
+                    <div class="career-tagline">
+                        <h2>#VemProCerebro 🙂</h2>
+                    </div>
+                </div>
+
+                <div class="vacancies-section">
+                    <h3 class="column-title">Vagas em Aberto</h3>
+
+                    <div class="no-vacancies-card glass-card">
+                        <div class="icon">🔍</div>
+                        <h4>Nenhuma oportunidade aberta no momento</h4>
+                        <p>No momento, nossa equipe está completa. Contudo, você pode preencher o cadastro de banco de
+                            talentos abaixo para futuras oportunidades.</p>
+                    </div>
+                </div>
+
+                <!-- Cadastro de Currículo -->
+                <div class="glass-card talent-pool-card">
+                    <h3>Banco de Talentos FCPN</h3>
+                    <form id="talent-form" class="custom-form grid-form">
+                        <div class="form-group">
+                            <label for="talent-name">Nome Completo *</label>
+                            <input type="text" id="talent-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="talent-email">E-mail *</label>
+                            <input type="email" id="talent-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="talent-phone">Telefone de Contato *</label>
+                            <input type="tel" id="talent-phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="talent-area">Área de Atuação *</label>
+                            <select id="talent-area" required>
+                                <option value="" disabled selected>Selecione...</option>
+                                <option value="Médica / Neurocirurgia">Médica / Neurocirurgia</option>
+                                <option value="Enfermagem">Enfermagem</option>
+                                <option value="Fisioterapia / Fonoaudiologia / Psicologia">Reabilitação (Fisioterapia,
+                                    Fono, Psi)</option>
+                                <option value="Administrativa / Jurídica">Administrativa / Jurídica</option>
+                                <option value="Pesquisa Científica">Pesquisa Científica</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="talent-file">Link do Currículo (Google Drive, LinkedIn ou Dropbox) *</label>
+                            <input type="url" id="talent-file" placeholder="https://linkedin.com/in/seu-perfil"
+                                required>
+                        </div>
+                        <div class="form-group full-width">
+                            <button type="submit" class="btn primary-btn">Cadastrar no Banco de Talentos</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO ÁREA DE MEMBROS -->
+        <section id="membros" class="section-pane">
+            <div class="container">
+                <div class="section-title">
+                    <span class="badge">Acesso Restrito</span>
+                    <h2>Área de Membros</h2>
+                    <p class="section-subtitle">Acesse documentos exclusivos, relatórios científicos e informativos da
+                        FCPN.</p>
+                </div>
+
+                <!-- Painel de Login (Exibido se não estiver logado) -->
+                <div id="membros-login-container" class="login-wrapper">
+                    <div class="glass-card login-card">
+                        <h3>Identificação do Membro</h3>
+                        <p class="login-instruction">Insira seu e-mail institucional e senha de acesso.</p>
+
+                        <form id="members-login-form" class="custom-form">
+                            <div class="form-group">
+                                <label for="login-email">E-mail Corporativo</label>
+                                <input type="email" id="login-email" placeholder="membro@fcpn.org" required
+                                    autocomplete="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="login-password">Senha de Acesso</label>
+                                <input type="password" id="login-password" placeholder="••••••••" required
+                                    autocomplete="current-password">
+                            </div>
+                            <div id="login-error-msg" class="error-message hidden">
+                                ❌ Credenciais inválidas. Tente novamente ou contate a administração.
+                            </div>
+                            <button type="submit" class="btn primary-btn full-width">Entrar no Painel</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Painel Exclusivo (Exibido se estiver logado) -->
+                <div id="membros-portal-container" class="portal-wrapper hidden">
+                    <div class="portal-header glass-card">
+                        <div class="portal-user-info">
+                            <div class="avatar">FCPN</div>
+                            <div>
+                                <h3>Bem-vindo, Membro FCPN</h3>
+                                <p>Sessão ativa institucional de <strong
+                                        id="user-display-email">membro@fcpn.org</strong></p>
+                            </div>
+                        </div>
+                        <button id="btn-logout" class="btn secondary-btn small-btn">Sair da Área</button>
+                    </div>
+
+                    <div class="portal-content-grid">
+                        <div class="glass-card info-card">
+                            <div class="icon">📢</div>
+                            <h3>Comunicado Importante</h3>
+                            <p>A próxima reunião científica geral ocorrerá no dia 15 de Agosto de 2026 no Auditório
+                                Principal, às 14:00. A pauta incluirá novas diretrizes do Comitê de Ética.</p>
+                        </div>
+
+                        <div class="glass-card doc-download-card">
+                            <div class="icon">📄</div>
+                            <h3>Documentos Exclusivos</h3>
+                            <p>Acesse as últimas atas de reuniões, normas técnicas e relatórios corporativos
+                                confidenciais.</p>
+                            <ul class="download-list">
+                                <li>
+                                    <span class="file-name">Ata_Assembleia_Geral_2026_Q2.pdf</span>
+                                    <a href="#" class="btn primary-btn btn-xs"
+                                        onclick="event.preventDefault(); alert('Download iniciado (Simulação): Ata_Assembleia_Geral_2026_Q2.pdf')">Download</a>
+                                </li>
+                                <li>
+                                    <span class="file-name">Diretrizes_Ensino_Pesquisa_v3.pdf</span>
+                                    <a href="#" class="btn primary-btn btn-xs"
+                                        onclick="event.preventDefault(); alert('Download iniciado (Simulação): Diretrizes_Ensino_Pesquisa_v3.pdf')">Download</a>
+                                </li>
+                                <li>
+                                    <span class="file-name">Relatorio_Anual_Gestao_FCPN.pdf</span>
+                                    <a href="#" class="btn primary-btn btn-xs"
+                                        onclick="event.preventDefault(); alert('Download iniciado (Simulação): Relatorio_Anual_Gestao_FCPN.pdf')">Download</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="glass-card info-card">
+                            <div class="icon">🧬</div>
+                            <h3>Links & Pesquisa</h3>
+                            <p>Acesso rápido aos repositórios e bases de dados do Centro de Estudos em Neurociências
+                                Paulo Niemeyer.</p>
+                            <div class="quick-links">
+                                <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" class="text-link">PubMed
+                                    ↗</a>
+                                <a href="https://www.scielo.org/" target="_blank" class="text-link">SciELO Brasil ↗</a>
+                                <a href="https://www.periodicos.capes.gov.br/" target="_blank"
+                                    class="text-link">Periódicos CAPES ↗</a>
+                            </div>
+                        </div>
+
+                        <!-- Card de Controle de Campanhas de Conscientização -->
+                        <div class="glass-card info-card campaign-control-card">
+                            <div class="icon">🎨</div>
+                            <h3>Campanhas de Saúde</h3>
+                            <p>Altere a identidade visual do site em prol das campanhas de conscientização social.</p>
+                            <div class="campaign-buttons">
+                                <button id="btn-outubro-rosa" class="btn pink-btn btn-xs">🎀 Outubro Rosa</button>
+                                <button id="btn-novembro-azul" class="btn blue-btn btn-xs">🎗️ Novembro Azul</button>
+                                <button id="btn-reset-tema" class="btn reset-theme-btn btn-xs">🔄 Padrão FCPN</button>
+                            </div>
+                        </div>
+
+                        <!-- Card de Cadastro de Novo Membro -->
+                        <div class="glass-card info-card register-member-card">
+                            <div class="icon">👤</div>
+                            <h3>Cadastrar Novo Membro</h3>
+                            <p>Registre um novo usuário para conceder acesso à Área de Membros.</p>
+                            <form id="register-member-form" class="custom-form">
+                                <div class="form-group">
+                                    <label for="reg-email">E-mail Corporativo</label>
+                                    <input type="email" id="reg-email" placeholder="novo.membro@fcpn.org" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="reg-password">Senha de Acesso</label>
+                                    <input type="password" id="reg-password" placeholder="••••••••" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="reg-role">Nível de Acesso</label>
+                                    <select id="reg-role" class="form-select" required>
+                                        <option value="member" selected>Membro Padrão</option>
+                                        <option value="admin">Administrador</option>
+                                    </select>
+                                </div>
+                                <div id="register-error-msg" class="error-message hidden" style="margin-top: 0.5rem;">
+                                </div>
+                                <div id="register-success-msg" class="success-message hidden"
+                                    style="color: #4aff4a; font-size: 0.85rem; font-weight: 500; text-align: center; margin-top: 0.5rem;">
+                                </div>
+                                <button type="submit" class="btn primary-btn full-width">Registrar Membro</button>
+                            </form>
+                        </div>
+
+                        <!-- Card de Alteração de Senha -->
+                        <div class="glass-card info-card change-password-card">
+                            <div class="icon">🔒</div>
+                            <h3>Alterar Minha Senha</h3>
+                            <p>Atualize a sua senha de acesso à Área de Membros.</p>
+                            <form id="change-password-form" class="custom-form">
+                                <div class="form-group">
+                                    <label for="change-current-pass">Senha Atual</label>
+                                    <div class="password-input-wrapper">
+                                        <input type="password" id="change-current-pass" placeholder="••••••••" required>
+                                        <button type="button" class="toggle-password" aria-label="Mostrar senha">
+                                            <svg class="eye-icon hidden" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                                                <circle cx="12" cy="12" r="3" />
+                                            </svg>
+                                            <svg class="eye-off-icon" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path
+                                                    d="M9.88 9.88a3 3 0 1 0 4.24 4.24M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68M6.61 6.61A13.52 13.52 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61M2 2l20 20" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="change-new-pass">Nova Senha</label>
+                                    <div class="password-input-wrapper">
+                                        <input type="password" id="change-new-pass" placeholder="••••••••" required>
+                                        <button type="button" class="toggle-password" aria-label="Mostrar senha">
+                                            <svg class="eye-icon hidden" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                                                <circle cx="12" cy="12" r="3" />
+                                            </svg>
+                                            <svg class="eye-off-icon" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path
+                                                    d="M9.88 9.88a3 3 0 1 0 4.24 4.24M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68M6.61 6.61A13.52 13.52 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61M2 2l20 20" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="change-confirm-pass">Confirmar Nova Senha</label>
+                                    <div class="password-input-wrapper">
+                                        <input type="password" id="change-confirm-pass" placeholder="••••••••" required>
+                                        <button type="button" class="toggle-password" aria-label="Mostrar senha">
+                                            <svg class="eye-icon hidden" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                                                <circle cx="12" cy="12" r="3" />
+                                            </svg>
+                                            <svg class="eye-off-icon" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path
+                                                    d="M9.88 9.88a3 3 0 1 0 4.24 4.24M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68M6.61 6.61A13.52 13.52 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61M2 2l20 20" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div id="change-pass-error-msg" class="error-message hidden"
+                                    style="margin-top: 0.5rem;"></div>
+                                <div id="change-pass-success-msg" class="success-message hidden"
+                                    style="color: #4aff4a; font-size: 0.85rem; font-weight: 500; text-align: center; margin-top: 0.5rem;">
+                                </div>
+                                <button type="submit" class="btn primary-btn full-width">Salvar Nova Senha</button>
+                            </form>
+                        </div>
+
+                        <!-- Card de Painel Administrativo (Exclusão) -->
+                        <div id="admin-management-card" class="glass-card info-card admin-control-card hidden">
+                            <div class="icon">⚙️</div>
+                            <h3>Painel de Gerenciamento de Membros</h3>
+                            <p>Lista de usuários ativos no sistema. Como administrador, você pode excluir cadastros.</p>
+
+                            <div class="table-responsive" style="margin-top: 1rem; overflow-x: auto; width: 100%;">
+                                <table class="admin-members-table"
+                                    style="width: 100%; border-collapse: collapse; text-align: left;">
+                                    <thead>
+                                        <tr style="border-bottom: 2px solid var(--border-color);">
+                                            <th
+                                                style="padding: 1rem 0.5rem; font-family: var(--font-heading); font-weight: 700; color: var(--accent-cyan);">
+                                                ID</th>
+                                            <th
+                                                style="padding: 1rem 0.5rem; font-family: var(--font-heading); font-weight: 700; color: var(--accent-cyan);">
+                                                E-mail</th>
+                                            <th
+                                                style="padding: 1rem 0.5rem; font-family: var(--font-heading); font-weight: 700; color: var(--accent-cyan);">
+                                                Nível</th>
+                                            <th
+                                                style="padding: 1rem 0.5rem; font-family: var(--font-heading); font-weight: 700; color: var(--accent-cyan); text-align: center;">
+                                                Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admin-members-list">
+                                        <!-- Preenchido via JS -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Rodapé Institutional -->
+    <footer class="glass-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <img src="imagens/logo.png" alt="FCPN Logo" class="footer-logo">
+                <p>FUNDAÇÃO DO CÉREBRO PAULO NIEMEYER <br>Centro de Estudos e Pesquisas em Neurociências</p>
+            </div>
+            <div class="footer-details">
+                <h4>Informações de Contato</h4>
+                <p class="nowrap-desktop">📍 Rua dos Inválidos 212, Sala 902 - Centro - Rio de Janeiro - RJ.</p>
+                <p>📞 (21) 2206-2203</p>
+                <p><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="#25D366"
+                        style="vertical-align: middle; margin-right: 5px; display: inline-block;">
+                        <path
+                            d="M12.012 2c-5.506 0-9.988 4.482-9.988 9.988 0 1.76.46 3.473 1.336 4.988l-1.42 5.187 5.309-1.392c1.462.798 3.102 1.217 4.76 1.217 5.505 0 9.988-4.482 9.988-9.988 0-2.659-1.036-5.158-2.923-7.046C17.17 3.036 14.671 2 12.012 2zm0 1.637c2.22 0 4.31.865 5.885 2.44 1.575 1.576 2.443 3.665 2.443 5.91 0 4.604-3.746 8.351-8.35 8.351-1.48 0-2.93-.393-4.205-1.139l-.302-.18-3.125.82.833-3.045-.196-.314c-.813-1.298-1.242-2.802-1.242-4.35 0-4.604 3.746-8.352 8.352-8.352zm-3.55 3.518c-.194 0-.422.049-.613.262-.191.212-.73.712-.73 1.737 0 1.025.746 2.013.85 2.15.103.14 1.466 2.24 3.553 3.14.496.213.882.34 1.185.437.499.16.953.137 1.312.083.4-.06 1.229-.503 1.402-1.012.174-.51.174-.946.122-1.037-.052-.09-.193-.14-.403-.246-.21-.106-1.242-.614-1.433-.684-.191-.07-.33-.106-.47.106-.14.212-.543.684-.665.824-.122.14-.244.156-.454.05-.21-.106-.887-.327-1.69-1.044-.624-.557-1.045-1.248-1.167-1.46-.122-.213-.013-.328.093-.433.096-.095.21-.245.316-.367.106-.122.14-.21.21-.35.07-.14.035-.262-.018-.367-.052-.106-.47-1.132-.644-1.55-.17-.41-.357-.35-.49-.357-.123-.006-.264-.007-.406-.007z" />
+                    </svg> <a href="https://wa.me/5521922062203" target="_blank">WhatsApp: (21) 92206-2203</a>
+                </p>
+                <p>✉️ <a href="mailto:fundacao.cerebro@fcpn.med.br">fundacao.cerebro@fcpn.med.br</a></p>
+                <p>🏢 CNPJ: 08.069.372/0001-86</p>
+            </div>
+            <div class="footer-links">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="#sobre" class="btn-nav-trigger" data-target="sobre">Estrutura</a></li>
+                    <li><a href="#transparencia" class="btn-nav-trigger" data-target="transparencia">Transparência</a>
+                    </li>
+                    <li><a href="#regimento" class="btn-nav-trigger" data-target="regimento">Regimento Interno</a></li>
+                    <li><a href="#comite" class="btn-nav-trigger" data-target="comite">Comitê de Ética</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Fundação do Cérebro Paulo Niemeyer. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Modal para Administrador Alterar Senha de Membro -->
+    <div id="admin-password-modal" class="modal-overlay hidden">
+        <div class="glass-card modal-content" style="background: rgba(20, 20, 35, 0.85);">
+            <button id="close-admin-modal-btn" class="close-btn">&times;</button>
+            <h3 style="margin-top: 0; color: #ffffff; font-family: var(--font-heading);">Alterar Senha de Membro</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.5rem;">Alterando senha para o
+                membro:</p>
+            <p id="admin-modal-member-email"
+                style="color: var(--accent-cyan); font-weight: 700; margin-bottom: 1.5rem; word-break: break-all;"></p>
+
+            <form id="admin-password-form" class="custom-form">
+                <input type="hidden" id="admin-modal-member-id">
+                <div class="form-group">
+                    <label for="admin-modal-new-pass" style="color: #ffffff;">Nova Senha</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="admin-modal-new-pass" placeholder="Digite a nova senha" required
+                            style="width: 100%;">
+                        <button type="button" class="toggle-password" aria-label="Mostrar senha">
+                            <svg class="eye-icon hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                            <svg class="eye-off-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M9.88 9.88a3 3 0 1 0 4.24 4.24M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68M6.61 6.61A13.52 13.52 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61M2 2l20 20" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div id="admin-modal-error-msg" class="error-message hidden" style="margin-top: 0.5rem;"></div>
+                <div id="admin-modal-success-msg" class="success-message hidden"
+                    style="color: #4aff4a; font-size: 0.85rem; font-weight: 500; text-align: center; margin-top: 0.5rem;">
+                </div>
+                <button type="submit" class="btn primary-btn full-width" style="margin-top: 1rem;">Salvar Nova
+                    Senha</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Laço Decorativo de Campanhas de Conscientização -->
+    <div id="campaign-ribbon" class="campaign-ribbon hidden" aria-hidden="true">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M32 4C23.16 4 16 11.16 16 20C16 27.24 20.44 33.4 26.68 35.8L12.56 57.24C11.56 58.76 12.64 60 14.48 60H22.48C23.96 60 25.32 59.2 26.04 57.92L32 46.88L37.96 57.92C38.68 59.2 40.04 60 41.52 60H49.52C51.36 60 52.44 58.76 51.44 57.24L37.32 35.8C43.56 33.4 48 27.24 48 20C48 11.16 40.84 4 32 4ZM32 28C27.58 28 24 24.42 24 20C24 15.58 27.58 12 32 12C36.42 12 40 15.58 40 20C40 24.42 36.42 28 32 28Z"
+                fill="currentColor" />
+        </svg>
+    </div>
+
+    <!-- JS Local -->
+    <script src="script.js?v=1.2"></script>
+</body>
+
+</html>
